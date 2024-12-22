@@ -11,12 +11,12 @@ import convert from './convert';
 
 // Implementation principle:
 //
-// When a module is processed, we look for import assertions;
+// When a module is processed, we look for import attributes;
 // for each one found, we attach adhoc information to the corresponding module.
 // When a module is transformed, we check for such adhoc information;
 // if present, we transform accordingly.
 //
-// In rollup v2, adhoc information is set/found in `meta: { 'import-assertions': <type> }`
+// In rollup v2, adhoc information is set/found in `meta: { 'import-attributes': <type> }`
 // In rollup v3, there is some support of import assertions, so we leverage this.
 // In that case, adhoc information is set/found in `assertions : { type: <type> }`
 //
@@ -24,19 +24,19 @@ import convert from './convert';
 
 // options are same as for @rollup/plugin-json
 // see https://github.com/rollup/plugins/tree/master/packages/json
-export default function importAssertions(options = {}) {
+export default function importAttributes(options = {}) {
   const filter = createFilter(options.include, options.exclude);
   const indent = 'indent' in options ? options.indent : '\t';
   const treatAsExternal = [];
 
   return {
-    name: 'import-assertions',
+    name: 'import-attributes',
 
-    // we want to make sure acorn knows how to parse import assertions
+    // we want to make sure acorn knows how to parse import attributes
 
     // For rollup v2 or v2,
     // the acorn parser only implements stage 4 js proposals.
-    // At the moment "import assertions" are a stage 3 proposal and as such
+    // At the moment "import attributes" are a stage 3 proposal and as such
     // cannot be parsed by acorn. However, there exist a plugin,
     // so we inject the adhoc plugin into the options
     // by leveraging https://rollupjs.org/guide/en/#acorninjectplugins
@@ -73,7 +73,7 @@ export default function importAssertions(options = {}) {
           ? moduleInfo.attributes.type /* rollup v4 */
           : 'assertions' in moduleInfo
           ? moduleInfo.assertions.type /* rollup v3 */
-          : moduleInfo.meta['import-assertions']; /* rollup v<=2 */
+          : moduleInfo.meta['import-attributes']; /* rollup v<=2 */
 
       if (assertType === 'json')
         // from @rollup/plugin-json
@@ -122,7 +122,7 @@ export default sheet;`;
               node.assertions
             ) {
               // As per https://github.com/xtuc/acorn-import-assertions/blob/main/src/index.js#L167
-              // an import assertions node has (amongst others):
+              // an import attributes node has (amongst others):
               // - a source node, whose value is the path
               const sourceNode = node.source;
               // - an (array of) assertions node, whose value is a Literal node, whose value is the type (i.e. "json"|"css")
@@ -153,7 +153,7 @@ export default sheet;`;
           }
           if (resolvedId.external) return;
 
-          const meta = { 'import-assertions': type };
+          const meta = { 'import-attributes': type };
           const moduleInfo = this.getModuleInfo(resolvedId.id);
           // case where the module has not been loaded yet.
           if (!moduleInfo) {

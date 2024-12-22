@@ -1,10 +1,10 @@
 [![libera manifesto](https://img.shields.io/badge/libera-manifesto-lightgrey.svg)](https://liberamanifesto.com)
 
-# rollup-plugin-import-assertions
+# rollup-plugin-import-attributes
 
-🍣 A Rollup plugin which bundles [import assertions](https://github.com/tc39/proposal-import-assertions).
+🍣 A Rollup plugin which bundles [import attributes](https://github.com/tc39/proposal-import-attributes).
 
-Two types of assertions are supported: `json` and `css`.
+Two types of attributes are supported: `json` and `css`.
 
 Currently, dynamic imports are not supported (PR welcomed).
 
@@ -13,7 +13,7 @@ Currently, dynamic imports are not supported (PR welcomed).
 Using npm:
 
 ```console
-npm install rollup-plugin-import-assertions --save-dev
+npm install rollup-plugin-import-attributes --save-dev
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ npm install rollup-plugin-import-assertions --save-dev
 Create a `rollup.config.js` [configuration file](https://www.rollupjs.org/guide/en/#configuration-files) and import the plugin:
 
 ```js
-import importAssertions from 'rollup-plugin-import-assertions';
+import importAttributes from 'rollup-plugin-import-attributes';
 
 export default {
   input: 'src/index.js',
@@ -29,7 +29,7 @@ export default {
     dir: 'output',
     format: 'cjs'
   },
-  plugins: [importAssertions()]
+  plugins: [importAttributes()]
 };
 ```
 
@@ -63,11 +63,11 @@ customElements.define('my-element', MyElement);
 
 ## Options
 
-For the `json` type of assertions, this plugin accepts the same options
+For the `json` type of aattribute, this plugin accepts the same options
 as those of [@rollup/plugin-json](https://github.com/rollup/plugins/tree/master/packages/json/).
-This makes it straight-forward to move to import assertions, should one wish so.
+This makes it straight-forward to move to import attributes, should one wish so.
 
-For the `css` type of assertions, this plugin accepts the usual `include` and `exclude` options.
+For the `css` type of attribute, this plugin accepts the usual `include` and `exclude` options.
 
 ### `compact` (type: 'json')
 
@@ -122,4 +122,4 @@ Credits to:
 
 ## License
 
-![license](https://img.shields.io/github/license/swiing/rollup-plugin-import-assertions)
+![license](https://img.shields.io/github/license/swiing/rollup-plugin-import-attributes)

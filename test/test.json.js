@@ -8,7 +8,7 @@ const { nodeResolve } = require('@rollup/plugin-node-resolve');
 
 const acorn = require('acorn');
 
-const importAssertions = require('../dist'); // eslint-disable-line import/no-unresolved
+const importAttributes = require('../dist'); // eslint-disable-line import/no-unresolved
 
 // require('../../../util/test');
 const { testBundle } = require('./util.js');
@@ -22,7 +22,7 @@ process.chdir(__dirname);
 test('converts json', async (t) => {
   const bundle = await rollup({
     input: 'fixtures/basic/main.js',
-    plugins: [importAssertions()]
+    plugins: [importAttributes()]
   });
   t.plan(1);
   return testBundle(t, bundle);
@@ -31,7 +31,7 @@ test('converts json', async (t) => {
 test('handles arrays', async (t) => {
   const bundle = await rollup({
     input: 'fixtures/array/main.js',
-    plugins: [importAssertions()]
+    plugins: [importAttributes()]
   });
   t.plan(1);
   return testBundle(t, bundle);
@@ -40,7 +40,7 @@ test('handles arrays', async (t) => {
 test('handles literals', async (t) => {
   const bundle = await rollup({
     input: 'fixtures/literal/main.js',
-    plugins: [importAssertions()]
+    plugins: [importAttributes()]
   });
   t.plan(1);
   return testBundle(t, bundle);
@@ -49,7 +49,7 @@ test('handles literals', async (t) => {
 test('generates named exports', async (t) => {
   const bundle = await rollup({
     input: 'fixtures/named/main.js',
-    plugins: [importAssertions()]
+    plugins: [importAttributes()]
   });
 
   const { code, result } = await testBundle(t, bundle, { exports: {} });
@@ -61,7 +61,7 @@ test('generates named exports', async (t) => {
 test('resolves extensionless imports in conjunction with the node-resolve plugin', async (t) => {
   const bundle = await rollup({
     input: 'fixtures/extensionless/main.js',
-    plugins: [nodeResolve({ extensions: ['.js', '.json'] }), importAssertions()]
+    plugins: [nodeResolve({ extensions: ['.js', '.json'] }), importAttributes()]
   });
   t.plan(2);
   return testBundle(t, bundle);
@@ -70,7 +70,7 @@ test('resolves extensionless imports in conjunction with the node-resolve plugin
 test('handles JSON objects with no valid keys (#19)', async (t) => {
   const bundle = await rollup({
     input: 'fixtures/no-valid-keys/main.js',
-    plugins: [importAssertions()]
+    plugins: [importAttributes()]
   });
   t.plan(1);
   return testBundle(t, bundle);
@@ -81,14 +81,14 @@ test('handles garbage', async (t) => {
 
   await rollup({
     input: 'fixtures/garbage/main.js',
-    plugins: [importAssertions()],
+    plugins: [importAttributes()],
     onwarn: (warning) => warns.push(warning)
   }).catch(() => {});
 
   const [{ message, id, position, plugin }] = warns;
 
   t.is(warns.length, 1);
-  t.is(plugin, 'import-assertions');
+  t.is(plugin, 'import-attributes');
   t.is(position, 1);
   t.is(message, 'Could not parse JSON file');
   t.regex(id, /(.*)bad.json$/);
@@ -99,7 +99,7 @@ test('handles garbage', async (t) => {
  */
 
 const transform = (fixture, options = {}) =>
-  importAssertions(options).transform.call(
+  importAttributes(options).transform.call(
     {
       parse: (code) =>
         acorn.parse(code, {
@@ -107,7 +107,7 @@ const transform = (fixture, options = {}) =>
         }),
       getModuleInfo: () => {
         return {
-          meta: { 'import-assertions': 'json' }
+          meta: { 'import-attributes': 'json' }
         };
       }
     },

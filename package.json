@@ -1,12 +1,12 @@
 {
-  "name": "rollup-plugin-import-assertions",
+  "name": "rollup-plugin-import-attributes",
   "version": "0.5.0",
-  "description": "Bundles TC39 import assertions",
+  "description": "Bundles TC39 import attributes",
   "license": "MIT",
-  "repository": "swiing/rollup-plugin-import-assertions",
+  "repository": "swiing/rollup-plugin-import-attributes",
   "author": "swiing",
-  "homepage": "https://github.com/swiing/rollup-plugin-import-assertions#readme",
-  "bugs": "https://github.com/swiing/rollup-plugin-import-assertions/issues",
+  "homepage": "https://github.com/swiing/rollup-plugin-import-attributes#readme",
+  "bugs": "https://github.com/swiing/rollup-plugin-import-attributes/issues",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "scripts": {
@@ -33,7 +33,8 @@
     "rollup-plugin",
     "import",
     "assertions",
-    "import assertions",
+    "attributes",
+    "import attributes",
     "json",
     "css"
   ],
