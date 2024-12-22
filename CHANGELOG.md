@@ -1,4 +1,12 @@
-# rollup-plugin-import-assertions ChangeLog
+# rollup-plugin-import-attributes ChangeLog
+
+## v0.6.0
+
+_2024-12-22_
+
+### Updates
+
+- chore: align to TC39 name
 
 ## v0.5.0
 
